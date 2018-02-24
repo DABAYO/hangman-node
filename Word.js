@@ -1,3 +1,4 @@
+// adds word from list
 const Letter = require("./Letter");
 
 //basil

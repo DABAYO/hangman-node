@@ -1,3 +1,4 @@
+// checks guessed letter
 function Letter(letter) {
     this.letter = letter;
     this.guessed = false;

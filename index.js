@@ -27,8 +27,8 @@ let game = {
         this.guess();
     }, 
     guess: function () {
-        // console.log(`${10-guesses} guesses remain.`);
-        // console.log(word.printWord());
+        console.log(`${10-guesses} guesses remain.`);
+        console.log(word.printWord());
 
         inquirer.prompt ([{
             type: "input",
