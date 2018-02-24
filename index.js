@@ -1,66 +1,65 @@
-const inquirer = require("inquirer");//node to install
+const inquirer = require("inquirer"); 
 const Word = require("./Word.js");
 
 let game = {
-    wordOptions: ["basil","oregano","sage","garlic","fennel","cardamom","turmeric"],
+    wordOptions: ["basil", "oregano", "sage", "garlic", "fennel", "cardamom", "turmeric"],
     guessesLeft: 10,
     lettersGuessed: [],
-    currentGameState: '',
-    startGame: function(){
+    currentBoardState: '',
+    startGame: function () {
         this.generateWord();
-        console.log ("\nPlay h-a-n-g-m-a-n\n Hint: it's the spice of life.\n");
-        this.renderGame();
+        console.log("\nPlay h-a-n-g-m-a-n!\n");
+        this.renderBoard();
     },
     generateWord: function () {
-        let temp = this.wordOptions[Math.floor(Math.random() * this.wordOptions.lentgth)];
-        let wordState = new word(temp);
-        this.currentGameState = wordState;
+        let temp = this.wordOptions[Math.floor(Math.random() * this.wordOptions.length)];
+        let wordState = new Word(temp);
+        this.currentBoardState = wordState;
     },
-    renderGame: function () {
-        let tempArr = this.currentGameState.wordByLetters;
-        let displayArr = temArr.map(function (val) {
+    renderBoard: function () {
+        let tempArr = this.currentBoardState.wordStateByLetter;
+        let displayArr = tempArr.map(function (val) {
             return val.print();
         });
         let cleaned = displayArr.join('');
         console.log(cleaned);
 
         this.guess();
-    }, 
+    },
     guess: function () {
-        console.log(`${10-guesses} guesses remain.`);
-        console.log(word.printWord());
-
-        inquirer.prompt ([{
+        // console.log(`${this.guessesLeft} guesses remain.`);
+        // console.log(word.printWord());
+        inquirer.prompt([{
             type: "input",
             name: "choice",
             message: "Guess a letter.\n"
-        }]).then(function(letter) {
+        }]).then(function (letter) {
             let lowerCaseLetter = letter.choice.toLowerCase();
             game.evaluateGuess(lowerCaseLetter);
         });
     },
     evaluateGuess: function (guess) {
-        let tempArr = this.currentGameState.wordByLetters;
-        let abc = tempArr.map(function (val) {
+        let tempArr = this.currentBoardState.wordStateByLetter;
+        let j = tempArr.map(function (val) {
             if (guess === val.letter) {
                 val.guessed = true;
+                guessesLeft --;
             }
             return val;
+            console.log("You guessed a letter!")
         });
-        this.currentGameState.wordByLetters = abc;
-        this.renderGame();
+        this.currentBoardState.wordStateByLetter = j;
+        this.renderBoard();
     },
-    startOver: function() {
+    startOver: function () {
         console.log(wordToGuess.split('').join(" "));
-        wordOptions.splice(wordOptions.indexOf(wordToGuess),1);
+        wordOptions.splice(wordOptions.indexOf(wordToGuess), 1);
 
-        if(wordOptions.length > 0) 
+        if (wordOptions.length > 0)
             startGame();
-
         else
             console.log("No more words to guess!");
     }
+
 }
-
 game.startGame();
-
