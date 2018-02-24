@@ -1,34 +1,18 @@
-const letter = require('./Letter.js');
+const Letter = require("./Letter");
 
-function Word(thisWord) {
-    let splitWord = thisWord.split(" ");
-    this.letters = [];
+//basil
+function Word(word) {
+    this.word = word; //basil
+    this.wordLength = this.word.length; // 5
+    this.wordArray = this.word.split(''); // ['b', 'a', 's', 'i', 'l']
+    this.wordStateByLetter = this.wordStateGen();
+}
 
-    splitWord.forEach(i => {
-        let newLetter = new Letter(i);
-
-        if(/\W/g.test(i))
-            newLetter.guessed = true;
-    this.letters.push(newLetter);
-        
+Word.prototype.wordStateGen = function () {
+    let arr = this.wordArray;
+    let letterArr = arr.map(function (val) {
+        return new Letter(val)
     });
-
-    this.printWord = function() {
-
-        let returnString = " ";
-
-        this.letters.forEach(1 =>{
-            returnString += 1.print() + " ";
-        });
-
-        return returnString;
-    };
-
-    this.guessLetter = function(letter) {
-        this.etters.forEach(1 =>{
-            1.check(letter);
-        });
-    };
-} 
-
+    return letterArr;
+}
 module.exports = Word;
